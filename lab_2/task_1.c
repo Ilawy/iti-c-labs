@@ -1,5 +1,7 @@
 #include "stdio.h"
 #include "conio.h"
+#include <unistd.h>
+
 
 int decr(int size, int current){
     return ((current == 0) ? (size - 1) : (current - 1));
@@ -12,9 +14,11 @@ int incr(int size, int current){
 
 int main()
 {
-    int size = 7, row = 0, col = size / 2;
-    // printf("please enter the size of the box: ");
-    // scanf(" %d", &size);
+    int size = 0;
+    printf("please enter the size of the box: ");
+    scanf(" %d", &size);
+    system("clear");
+    int row = 0, col = size / 2;
     // print first number in the middle of first row
     gotoxy(col * 5 + 5, row + 1);
     printf("%d ", 1);
@@ -34,6 +38,7 @@ int main()
         }
         gotoxy(col * 5 + 5, row + 1);
         printf("%d ", i);
+        sleep(1);
 
     }
 
