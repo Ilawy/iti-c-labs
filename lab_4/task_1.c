@@ -51,9 +51,15 @@ int main()
     printf("ROWS SUM\n");
     for (int row = 0; row < ROWS; row++)
     {
-        // for()
-        /* code */
+        int result = 0;
+        for(int col = 0; col < COLS; col++){
+            result += array[row][col];
+        }
+        printf("Row %d: %d\n", row+1, result);
     }
+
+    printf("COLS SUM\n");
+    
     
     /* code */
     return 0;

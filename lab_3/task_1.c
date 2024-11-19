@@ -5,7 +5,7 @@
 /*  CONTROLS
 UP/DOWN --> NAVIGATE
 ENTER   --> SELECT
-Q       --> BACK 
+Q       --> BACK
 
 */
 
@@ -13,7 +13,8 @@ Q       --> BACK
 #define WHITE "\x1B[37m"
 #define RESET "\x1B[0m"
 
-#define KEY_UP
+#define HOME_KEY 72
+#define END_KEY 70
 
 #define MENU_SIZE 3
 
@@ -39,7 +40,7 @@ int main(int argc, char const *argv[])
             printf("%s%s%s", current_index == 1 ? BLUE : WHITE, "2) Option 2\n", RESET);
             printf("%s%s%s", current_index == 2 ? BLUE : WHITE, "3) Go back\n", RESET);
         }
-    
+
         char firstch = getch(); // read first
         if (firstch == 27)
         {
@@ -54,6 +55,12 @@ int main(int argc, char const *argv[])
                 break;
             case 'A': // UP
                 current_index = ((current_index == 0) ? (MENU_SIZE - 1) : (current_index - 1));
+                break;
+            case HOME_KEY:
+                current_index = 0;
+                break;
+            case END_KEY:
+                current_index = MENU_SIZE - 1;
                 break;
             }
         }
@@ -76,11 +83,15 @@ int main(int argc, char const *argv[])
                 in_sub_menu = 0;
             }
         }
-        else if(firstch == 113){
-            //Q
-            if(in_sub_menu){
+        else if (firstch == 113)
+        {
+            // Q
+            if (in_sub_menu)
+            {
                 in_sub_menu = 0;
-            }else{
+            }
+            else
+            {
                 running = 0;
             }
         }
