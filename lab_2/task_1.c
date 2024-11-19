@@ -14,9 +14,12 @@ int incr(int size, int current){
 
 int main()
 {
-    int size = 0;
-    printf("please enter the size of the box: ");
-    scanf(" %d", &size);
+    int size = -1;
+   
+    while(size == -1 || size % 2 == 0 || size <= 1){
+            printf("please enter the size of the box (more that one, odd): ");
+            scanf(" %d", &size);
+    }
     system("clear");
     int row = 0, col = size / 2;
     // print first number in the middle of first row
@@ -39,7 +42,6 @@ int main()
         gotoxy(col * 5 + 5, row + 1);
         printf("%d ", i);
         sleep(1);
-
     }
 
 }
