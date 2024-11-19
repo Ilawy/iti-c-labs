@@ -41,7 +41,7 @@ int main(int argc, char const *argv[])
         }
     
         char firstch = getch(); // read first
-        if (firstch == '\033')
+        if (firstch == 27)
         {
             getch(); // skip the ]
 

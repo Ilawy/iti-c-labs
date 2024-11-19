@@ -2,7 +2,7 @@
 
 /*
     THIS IS NOT A PART OF THE LAB
-    THIS IS A TEST TO THE GETCH FUNCTION, TRYING TO KNOW THE DIFFERENCE BETWEEN ESC AND ARROWS
+    THIS IS A REWRITE OF ORIGINAL MENU
 */
 
 #include "stdio.h"
@@ -14,81 +14,56 @@
 
 #define KEY_UP
 
-#define MENU_SIZE 3
+#define ARRAY_SIZE 3
+#define ELEMENT_MAX 16
+
+void render_menu(char menu[ARRAY_SIZE][ELEMENT_MAX], int selection)
+{
+    for (int line = 0; line < ARRAY_SIZE; line++)
+    {
+        printf("%d) %s%s%s\n", line, line == selection ? BLUE : WHITE, menu[line], RESET);
+    }
+}
 
 int main(int argc, char const *argv[])
 {
-    int current_index = 0;
-    char running = 1;
-    char in_sub_menu = 0;
-    while (running)
-    {
-        // system("clear");
-        if (!in_sub_menu) // TODO: MAKE A FUNCTION TO GENERATE MENUS
-        {
-            printf("--My Great Menu--\n\n");
-            printf("%s%s%s", current_index == 0 ? BLUE : WHITE, "1) Single Option\n", RESET);
-            printf("%s%s%s", current_index == 1 ? BLUE : WHITE, "2) Menu Option ->\n", RESET);
-            printf("%s%s%s", current_index == 2 ? BLUE : WHITE, "3) Exit\n", RESET);
-        }
-        else
-        {
-            printf("--Sub Menu--\n\n");
-            printf("%s%s%s", current_index == 0 ? BLUE : WHITE, "1) Option 1\n", RESET);
-            printf("%s%s%s", current_index == 1 ? BLUE : WHITE, "2) Option 2\n", RESET);
-            printf("%s%s%s", current_index == 2 ? BLUE : WHITE, "3) Go back\n", RESET);
-        }
+    int selection = 1;
+    char main_menu[ARRAY_SIZE][ELEMENT_MAX] = {
+        "Main",
+        "Submenu ->",
+        "Exit"};
 
+    char sub_menu[ARRAY_SIZE][ELEMENT_MAX] = {
+        "Option 1",
+        "Option 2",
+        "Go back"};
+
+    while (1)
+    {
         char firstch = getch(); // read first
-        if (firstch == '\033')
+        if (firstch == 27)
         {
-            getch(); // skip the ]
-
-            char direction = getch(); // read the direction
-            switch (direction)
+            int is_esc = !kbhit();
+            if (!is_esc)
             {
-            case 'B': // DOWN
-                current_index = ((current_index == (MENU_SIZE - 1)) ? 0 : (current_index + 1));
+                getch();                  // skip ]
+                char direction = getch(); // read the direction
+                switch (direction)
+                {
+                case 'B': // DOWN
+                    printf("DWN HIT");
 
-                break;
-            case 'A': // UP
-                current_index = ((current_index == 0) ? (MENU_SIZE - 1) : (current_index - 1));
-                break;
+                    break;
+                case 'A': // UP
+                    printf("UP HIT");
+                    break;
+                }
             }
-        }
-        else if (firstch == 10)
-        {
-            //ENTER
-            if (!in_sub_menu && current_index == 1)
-            { // go to sub menu
-                in_sub_menu = 1;
-            }
-
-            if (!in_sub_menu && current_index == 2)
-            {
-                // exit
-                running = 0;
-            }
-
-            if (in_sub_menu && current_index == 2)
-            {
-                // go back from sub menu
-                in_sub_menu = 0;
-            }
+            printf("ESC HIT\n");
+            // getch(); // skip the ]
         }
     }
 
+    // render_menu(main_menu, selection);
     return 0;
-}
-
-char get_input()
-{
-    char buffer[3] = {0};
-    int tries = 0;
-    char current = getch();
-    if (current != 27)
-        return current;
-    while (0)
-    {
-    }
 }
