@@ -15,14 +15,33 @@ Q       --> BACK
 
 #define HOME_KEY 72
 #define END_KEY 70
+#define UP_KEY 'A'
+#define DOWN_KEY 'B'
 
 #define MENU_SIZE 3
+
+
+typedef struct Date{
+    int day;
+    int month;
+    int year;
+} Date;
+
+typedef struct Employee{
+    int id;
+    char name[20];
+    int salary;
+    Date bDate;
+} Employee;
 
 int main(int argc, char const *argv[])
 {
     int current_index = 0;
     char running = 1;
     char in_sub_menu = 0;
+
+    Employee staff[5] = {0};
+
     while (running)
     {
         system("clear");
@@ -35,25 +54,25 @@ int main(int argc, char const *argv[])
         }
         else
         {
-            printf("--Sub Menu--\n\n");
-            printf("%s%s%s", current_index == 0 ? BLUE : WHITE, "1) Option 1\n", RESET);
-            printf("%s%s%s", current_index == 1 ? BLUE : WHITE, "2) Option 2\n", RESET);
+            printf("--Controls--\n\n");
+            printf("%s%s%s", current_index == 0 ? BLUE : WHITE, "1) Create Employee\n", RESET);
+            printf("%s%s%s", current_index == 1 ? BLUE : WHITE, "2) Delete Employee\n", RESET);
             printf("%s%s%s", current_index == 2 ? BLUE : WHITE, "3) Go back\n", RESET);
         }
 
         char firstch = getch(); // read first
         if (firstch == 27)
         {
-            getch(); // skip the ]
+           getch(); // skip the ]
 
             char direction = getch(); // read the direction
             switch (direction)
             {
-            case 'B': // DOWN
+            case DOWN_KEY: // DOWN
                 current_index = ((current_index == (MENU_SIZE - 1)) ? 0 : (current_index + 1));
 
                 break;
-            case 'A': // UP
+            case UP_KEY: // UP
                 current_index = ((current_index == 0) ? (MENU_SIZE - 1) : (current_index - 1));
                 break;
             case HOME_KEY:
