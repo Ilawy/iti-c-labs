@@ -1,0 +1,3 @@
+[submodule "c_menu"]
+	path = c_menu
+	url = https://github.com/Ilawy/c_menu
